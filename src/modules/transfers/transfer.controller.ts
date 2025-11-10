@@ -10,10 +10,9 @@ export class TransferController {
         private transferService: TransferService
     ) {}
     async transfer (req: Request, res: Response) {
-        //const tokenData = verifyJWT(req.headers.authorization!);
         const { sourceAccount, destinationAccount, amount } = req.body
         try {
-            await this.transferService.create(sourceAccount, destinationAccount, amount)
+            await this.transferService.create(sourceAccount, destinationAccount, amount, Number((req as any).user.account))
             return res.status(200).json({ success: true })
         } catch (error: any) {
             if (error instanceof HttpExceptionFilter) {
