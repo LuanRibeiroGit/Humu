@@ -17,13 +17,10 @@ async function verifyJWT(req: Request, res: Response, next: any) {
         const decoded = jwt.verify(token, process.env.JWT_TOKEN || 'humu teste :)') as { token: string; }
         (req as any).user = decoded
 
-        console.log(req as any)
-
         next()
     } catch (err) {
         return res.status(401).json({ message: "Token inválido ou expirado", status: 0 })
     }
-    next()
 }
 
 export default verifyJWT

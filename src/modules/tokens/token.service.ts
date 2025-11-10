@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client"
 import { AccountService } from "../accounts/account.service"
 const jwt = require('jsonwebtoken')
 
