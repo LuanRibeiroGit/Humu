@@ -15,7 +15,8 @@ async function verifyJWT(req: Request, res: Response, next: any) {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_TOKEN || 'humu teste :)') as { token: string; }
-        (req as any).user = decoded
+        (req as any).user = decoded,
+        (req as any).token = token
 
         next()
     } catch (err) {

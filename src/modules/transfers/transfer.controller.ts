@@ -11,8 +11,10 @@ export class TransferController {
     ) {}
     async transfer (req: Request, res: Response) {
         const { sourceAccount, destinationAccount, amount } = req.body
+        const token = (req as any).token
+        const accountReq = Number((req as any).user.account)
         try {
-            await this.transferService.create(sourceAccount, destinationAccount, amount, Number((req as any).user.account))
+            await this.transferService.create(sourceAccount, destinationAccount, amount, accountReq, token)
             return res.status(200).json({ success: true })
         } catch (error: any) {
             if (error instanceof HttpExceptionFilter) {

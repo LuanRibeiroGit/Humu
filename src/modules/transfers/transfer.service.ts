@@ -9,7 +9,7 @@ export class TransferService {
     constructor(
         private accountService: AccountService
     ) {}
-    async create (sourceAccount: number, destinationAccount: number, amount: number, accountReq: number) {
+    async create (sourceAccount: number, destinationAccount: number, amount: number, accountReq: number, token: string) {
         console.log(accountReq, sourceAccount)
         if(accountReq != sourceAccount) throw new HttpExceptionFilter('Não autorizado.', 401)
         if (!sourceAccount || !destinationAccount || !amount) throw new HttpExceptionFilter('Dados inválidos', 400)
@@ -24,7 +24,7 @@ export class TransferService {
                     source_account: sourceAccount,
                     destination_account: destinationAccount,
                     amount,
-                    created_by: 'tokenData.userId',
+                    created_by: token,
                 },
             })
             await tx.account.update({
