@@ -5,15 +5,13 @@ import { HttpExceptionFilter } from '../../common/filters/http-exception.filter'
 
 
 export class TransferController {
-    private transferService: TransferService
 
-    constructor(transferService: TransferService) {
-        this.transferService = transferService
-    }
+    constructor(
+        private transferService: TransferService
+    ) {}
     async transfer (req: Request, res: Response) {
         //const tokenData = verifyJWT(req.headers.authorization!);
         const { sourceAccount, destinationAccount, amount } = req.body
-        console.log(sourceAccount, destinationAccount, amount)
         try {
             await this.transferService.create(sourceAccount, destinationAccount, amount)
             return res.status(200).json({ success: true })
