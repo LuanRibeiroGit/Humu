@@ -10,9 +10,9 @@ export class TransferService {
         private accountService: AccountService
     ) {}
     async create (sourceAccount: number, destinationAccount: number, amount: number) {
-        if (!sourceAccount || !destinationAccount || !amount) {
-            throw new HttpExceptionFilter('Dados inválidos', 400)
-        }
+
+        if (!sourceAccount || !destinationAccount || !amount) throw new HttpExceptionFilter('Dados inválidos', 400)
+        if(sourceAccount == destinationAccount) throw new HttpExceptionFilter('A conta de destino não pode ser a mesma do envio', 400)
 
         await prisma.$transaction(async (tx) => {
             const source = await this.accountService.findOne(sourceAccount, 'source')
