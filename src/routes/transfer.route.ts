@@ -10,6 +10,6 @@ const accountService = new AccountService()
 const transferService = new TransferService(accountService)
 const transferController = new TransferController(transferService)
 
-router.post('/transfer', (req, res) => transferController.transfer(req, res))
+router.post('/transfer' , verifyJWT, (req, res) => transferController.transfer(req, res))
 
 export default router
