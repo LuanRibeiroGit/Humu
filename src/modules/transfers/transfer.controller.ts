@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { TransferService } from '../services/transfer.service'
-import { HttpExceptionFilter } from '../common/filters/http-exception.filter'
+import { TransferService } from './transfer.service'
+import { HttpExceptionFilter } from '../../common/filters/http-exception.filter'
 
 
 
@@ -11,6 +11,7 @@ export class TransferController {
         this.transferService = transferService
     }
     async transfer (req: Request, res: Response) {
+        //const tokenData = verifyJWT(req.headers.authorization!);
         const { sourceAccount, destinationAccount, amount } = req.body
         console.log(sourceAccount, destinationAccount, amount)
         try {
