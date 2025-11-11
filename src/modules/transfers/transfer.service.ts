@@ -20,7 +20,7 @@ export class TransferService {
             })
             if (!source)throw new HttpExceptionFilter(`Conta source não encontrada`, 404)
                     
-            this.balance(source, amount)
+            await this.balance(source, amount)
 
             const destination = await tx.account.findUnique({
                 where: { number: destinationAccount },
@@ -49,7 +49,7 @@ export class TransferService {
         return { success: true }
     }
 
-    private balance (source: any, amount: number){
+    async balance (source: any, amount: number){
         if (!source || source.balance < amount) throw new HttpExceptionFilter('Saldo insuficiente')
     }
 }
