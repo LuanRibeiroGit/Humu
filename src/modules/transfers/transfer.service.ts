@@ -20,7 +20,7 @@ export class TransferService {
             })
             if (!source)throw new HttpExceptionFilter(`Conta source não encontrada`, 404)
                     
-            await this.balance(source, amount)
+            this.balance(source, amount)
 
             const destination = await tx.account.findUnique({
                 where: { number: destinationAccount },
