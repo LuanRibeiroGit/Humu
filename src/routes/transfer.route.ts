@@ -6,8 +6,7 @@ import { AccountService } from '../modules/accounts/account.service'
 import verifyJWT from '../common/middleware/verifyToken'
 
 const router = Router()
-const accountService = new AccountService()
-const transferService = new TransferService(accountService)
+const transferService = new TransferService()
 const transferController = new TransferController(transferService)
 
 router.post('/transfer' , verifyJWT, (req, res) => transferController.transfer(req, res))

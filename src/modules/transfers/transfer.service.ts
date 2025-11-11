@@ -1,20 +1,17 @@
 import { PrismaClient } from "@prisma/client"
-
+const prisma = new PrismaClient()
 
 import { HttpExceptionFilter } from '../../common/filters/http-exception.filter'
-import { AccountService } from "../accounts/account.service"
 
 export class TransferService {
     constructor(
-        private prisma: PrismaClient,
-        private accountService: AccountService
     ) {}
     async create (sourceAccount: number, destinationAccount: number, amount: number, accountReq: number, token: string) {
         if(accountReq != sourceAccount) throw new HttpExceptionFilter('Não autorizado.', 401)
         if (!sourceAccount || !destinationAccount || !amount) throw new HttpExceptionFilter('Dados inválidos', 400)
         if(sourceAccount == destinationAccount) throw new HttpExceptionFilter('A conta de destino não pode ser a mesma do envio', 400)
 
-        await this.prisma.$transaction(async (tx) => {
+        await prisma.$transaction(async (tx) => {
             const source = await tx.account.findUnique({
                 where: { number: sourceAccount },
             })
