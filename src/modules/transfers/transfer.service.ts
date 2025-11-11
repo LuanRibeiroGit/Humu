@@ -10,7 +10,6 @@ export class TransferService {
         private accountService: AccountService
     ) {}
     async create (sourceAccount: number, destinationAccount: number, amount: number, accountReq: number, token: string) {
-        console.log(accountReq, sourceAccount)
         if(accountReq != sourceAccount) throw new HttpExceptionFilter('Não autorizado.', 401)
         if (!sourceAccount || !destinationAccount || !amount) throw new HttpExceptionFilter('Dados inválidos', 400)
         if(sourceAccount == destinationAccount) throw new HttpExceptionFilter('A conta de destino não pode ser a mesma do envio', 400)
